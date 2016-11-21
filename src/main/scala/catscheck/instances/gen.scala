@@ -20,7 +20,7 @@ object gen extends GenInstances {
           if (count <= 0) true else {
             val tx = Try(x.doApply(params, seed))
             val ty = Try(y.doApply(params, seed))
-              (tx, ty) match {
+            (tx, ty) match {
               case (Failure(_), Failure(_)) =>
                 loop(count - 1, Seed.random)
               case (Success(rx), Success(ry)) =>
