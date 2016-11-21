@@ -38,14 +38,10 @@ object cogen extends CogenInstances {
 }
 
 trait CogenInstances {
-  implicit val cogenContravariant: Contravariant[Cogen] =
-    new Contravariant[Cogen] {
+  implicit val cogenContravariantCartesian: ContravariantCartesian[Cogen] =
+    new ContravariantCartesian[Cogen] {
       def contramap[A, B](c: Cogen[A])(f: B => A): Cogen[B] =
         c.contramap(f)
-    }
-
-  implicit val cogenCartesian: Cartesian[Cogen] =
-    new Cartesian[Cogen] {
       def product[A, B](ca: Cogen[A], cb: Cogen[B]): Cogen[(A, B)] =
         Cogen.tuple2(ca, cb)
     }

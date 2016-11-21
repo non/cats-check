@@ -19,8 +19,7 @@ The following instances are available for `org.scalacheck.Gen`:
 
 The following instances are available for `org.scalacheck.Cogen`:
 
- * `Contravariant[Cogen]`
- * `Cartesian[Cogen]`
+ * `ContravariantCartesian[Cogen]`
  * `MonoidK[Cogen]`
 
 ### Usage
