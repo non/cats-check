@@ -9,6 +9,20 @@ with Cats type classes (e.g. `Monad`).
 
 *Cats-check* is not yet published.
 
+### Supported instances
+
+The following instances are available for `org.scalacheck.Gen`:
+
+ * `MonadCombine[Gen]`
+ * `Monoid[Gen[A]]` (given `Monoid[A]`)
+ * `Semigroup[Gen[A]]` (given `Semigroup[A]`)
+
+The following instances are available for `org.scalacheck.Cogen`:
+
+ * `Contravariant[Cogen]`
+ * `Cartesian[Cogen]`
+ * `MonoidK[Cogen]`
+
 ### Usage
 
 The easiest way to use these type class instances is with a single
@@ -65,6 +79,31 @@ Why would you want these?
 (i.e. law violations). During testing it's often useful to be able to
 provide these kind of "best effort" instances for types that wouldn't
 otherwise be directly comparable.
+
+### Frequently-asked questions
+
+ 1. **Why use the org.scalacheck namespace?**
+
+    Some of the `Gen` methods this library needs to use are currently
+    marked `private[scalacheck]`. Without these, implementing
+    `combineK`, `tailRecM`, and `sampledEq` would be impossible (or at
+    least very difficult). If ScalaCheck opens up these APIs, this may
+    change.
+
+ 2. **Where are the instances for Arbitrary?**
+
+    Since `Arbitrary[A]` just wraps `Gen[A]`, there is little benefit
+    to supporting instances directly. In the author's experience it's
+    more likely that people will want to work with `Gen[A]` instances
+    (obtained via `arbitrary[A]`) than `Arbitrary[A]` instances
+    directly. (However, pull requests to add boilerplate-y `Arbitrary`
+    instances woudl be accepted.)
+
+ 3. **Does this library provide Arbitrary intances for Cats data types?**
+
+    It seems possible that `cats-laws` will provide these instances.
+    If the Cats maintainers would prefer, we can definitely
+    support adding these instances to *cats-check*.
 
 ### Copyright and License
 
